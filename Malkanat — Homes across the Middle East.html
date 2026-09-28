@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Malkanat — Homes across the Middle East</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#fff;--soft:#f3f6fb;--ink:#0e1b33;--mute:#5b6982;--line:#e3e8f0;--brand:#1f5eff;--brand2:#0b2a6f;--sea:#dbe8fb;--land:#eef2f8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--soft:#111a2e;--ink:#eef2fa;--mute:#93a1bd;--line:#22304d;--brand:#5b8bff;--brand2:#9db8ff;--sea:#0f1c36;--land:#182541}}
+:root[data-theme="dark"]{--bg:#0b1220;--soft:#111a2e;--ink:#eef2fa;--mute:#93a1bd;--line:#22304d;--brand:#5b8bff;--brand2:#9db8ff;--sea:#0f1c36;--land:#182541}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+.w{max-width:1120px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+header .w{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.5px}.logo b{color:var(--brand)}
+nav{display:flex;gap:22px;align-items:center;font-size:15px;color:var(--mute)}
+nav a:hover{color:var(--ink)}
+.btn{display:inline-block;border:0;cursor:pointer;background:var(--brand);color:#fff;padding:12px 22px;border-radius:999px;font:600 15px inherit;font-family:inherit}
+.btn.o{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.hero{padding:72px 0 48px;background:linear-gradient(180deg,var(--soft),var(--bg))}
+.hero .w{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.pill{display:inline-block;background:var(--sea);color:var(--brand2);padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600}
+h1{font-size:clamp(34px,5vw,56px);line-height:1.05;letter-spacing:-1.5px;margin:16px 0}
+.lead{color:var(--mute);font-size:18px;max-width:520px}
+.search{display:flex;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:8px;margin-top:28px;max-width:560px;box-shadow:0 8px 30px rgba(20,40,90,.08)}
+.search select,.search input{border:0;background:transparent;color:var(--ink);font:inherit;padding:8px 12px;flex:1;min-width:0;outline:0}
+.stats{display:flex;gap:32px;margin-top:28px;color:var(--mute);font-size:14px}.stats b{display:block;color:var(--ink);font-size:22px}
+section{padding:64px 0}
+h2{font-size:clamp(26px,3.4vw,38px);letter-spacing:-1px;margin:0 0 10px}
+.sub{color:var(--mute);margin:0 0 32px;max-width:620px}
+.mapbox{position:relative;background:var(--sea);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.hero .mapbox{aspect-ratio:1/1}
+svg{display:block;width:100%;height:auto}
+.land{fill:var(--land);stroke:var(--line);stroke-width:1.5}
+.pt{fill:var(--brand);stroke:#fff;stroke-width:2;cursor:pointer;transition:r .15s}
+.pt:hover{r:9}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);padding:6px 10px;border-radius:8px;font-size:13px;opacity:0;transform:translate(-50%,-140%);white-space:nowrap}
+.lbl{fill:var(--mute);font-size:11px;letter-spacing:1px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{border:1px solid var(--line);border-radius:16px;padding:18px;background:var(--bg)}
+.card .ph{height:110px;border-radius:10px;background:linear-gradient(135deg,var(--sea),var(--land));margin-bottom:14px}
+.card h3{margin:0 0 4px;font-size:17px}.card .m{color:var(--mute);font-size:14px}
+.card .price{font-weight:700;margin-top:8px}
+.lock{filter:blur(5px);user-select:none}
+.reg .lockmsg{display:none;margin-top:10px;font-size:13px;color:var(--brand)}
+body:not(.in) .lockmsg{display:block}
+body.in .lock{filter:none;user-select:auto}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:var(--soft);border-radius:16px;padding:24px}
+.step i{font-style:normal;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;margin-bottom:12px}
+.step h3{margin:0 0 6px}.step p{margin:0;color:var(--mute);font-size:15px}
+.formcard{background:var(--soft);border-radius:24px;padding:32px;display:grid;grid-template-columns:.8fr 1.2fr;gap:36px}
+.formcard ul{padding-left:18px;color:var(--mute)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{font-size:13px;font-weight:600;display:grid;gap:5px}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;width:100%}
+.full{grid-column:1/-1}
+.agree{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px;color:var(--mute)}
+.agree input{width:auto;margin-top:4px}
+.note{font-size:13px;color:var(--mute)}
+footer{border-top:1px solid var(--line);padding:36px 0;color:var(--mute);font-size:14px}
+footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.modal{position:fixed;inset:0;background:rgba(5,10,25,.6);display:none;place-items:center;z-index:50;padding:20px}
+.modal.on{display:grid}
+.box{background:var(--bg);border-radius:20px;padding:28px;width:100%;max-width:400px;display:grid;gap:14px}
+.box h3{margin:0;font-size:22px}
+@media(max-width:820px){.hero .w,.formcard{grid-template-columns:1fr}.steps{grid-template-columns:1fr}nav a.h{display:none}form{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="w">
+<a class="logo" href="#top">malkanat<b>.</b></a>
+<nav><a class="h" href="#map">Map</a><a class="h" href="#homes">Homes</a><a class="h" href="#list">List a home</a>
+<button class="btn o" id="regBtn" onclick="openReg()">Register</button></nav>
+</div></header>
+
+<div class="hero" id="top"><div class="w">
+<div>
+<span class="pill">Free to list · Houses across the Middle East</span>
+<h1>Find your next home in the Middle East.</h1>
+<p class="lead">Browse houses to rent or buy in the Gulf, Levant and beyond. Landlords and agents list for free in minutes.</p>
+<div class="search">
+<select id="fc"><option value="">All countries</option></select>
+<select id="ft"><option value="">Rent or buy</option><option>Rent</option><option>Buy</option></select>
+<button class="btn" onclick="document.getElementById('map').scrollIntoView()">Search</button>
+</div>
+<div class="stats"><div><b>9</b>countries</div><div><b>Free</b>to advertise</div><div><b>1 form</b>to list</div></div>
+</div>
+<div class="mapbox"><svg viewBox="0 0 400 400" id="hmap" aria-label="Map preview"></svg></div>
+</div></div>
+
+<section id="map"><div class="w">
+<h2>Homes on the map</h2>
+<p class="sub">Every dot is a listed house. Hover to see the area. Register free to open the full details.</p>
+<div class="mapbox" id="mb"><svg viewBox="0 0 800 520" id="bmap" aria-label="Map of listings"></svg><div class="tip" id="tip"></div></div>
+</div></section>
+
+<section id="homes" style="background:var(--soft)"><div class="w">
+<h2>Latest houses</h2>
+<p class="sub">Photos, exact address and enquiry details unlock after a free registration.</p>
+<div class="cards reg" id="cards"></div>
+</div></section>
+
+<section><div class="w">
+<h2>How it works</h2><p class="sub">No agency branding, no fees. One portal.</p>
+<div class="steps">
+<div class="step"><i>1</i><h3>Submit your house</h3><p>Fill in a short form with location, price and photos.</p></div>
+<div class="step"><i>2</i><h3>Sign the simple agreement</h3><p>Confirm you are authorised to advertise the property.</p></div>
+<div class="step"><i>3</i><h3>Go live for free</h3><p>Your house appears as a point on the map for registered buyers and tenants.</p></div>
+</div></div></section>
+
+<section id="list" style="background:var(--soft)"><div class="w">
+<div class="formcard">
+<div><h2>List your house</h2><p class="sub">For agents and landlords. Free, always.</p>
+<ul><li>Takes about two minutes</li><li>Only a map point is shown publicly</li><li>Enquiries reach you through portal@malkanat.com</li></ul></div>
+<form id="lf" onsubmit="return sendList(event)">
+<label>I am a<select name="role"><option>Landlord</option><option>Agent</option></select></label>
+<label>Rent or sale<select name="type"><option>Rent</option><option>Buy</option></select></label>
+<label>Country<select name="country" id="lc"></select></label>
+<label>City / area<input name="city" required placeholder="e.g. Al Olaya"></label>
+<label>Bedrooms<input name="beds" type="number" min="1" max="20" required></label>
+<label>Price (local currency)<input name="price" required></label>
+<label class="full">Description<textarea name="desc" rows="3" placeholder="Size, features, availability"></textarea></label>
+<label>Your name<input name="name" required></label>
+<label>Your email<input name="email" type="email" required></label>
+<label class="full">Type your full name to sign<input name="sign" required placeholder="Signature"></label>
+<label class="agree full"><input type="checkbox" required> I confirm I own or am authorised to advertise this property, the details are accurate, and I agree to Malkanat's free listing terms.</label>
+<div class="full"><button class="btn" type="submit">Sign &amp; submit listing</button>
+<p class="note">Submitting opens an email to portal@malkanat.com with your listing.</p></div>
+</form>
+</div>
+</div></section>
+
+<footer><div class="w"><div><b>malkanat.</b> Houses across the Middle East</div><div>Contact: <a href="mailto:portal@malkanat.com">portal@malkanat.com</a></div></div></footer>
+
+<div class="modal" id="rm"><div class="box">
+<h3>Register to see more</h3>
+<p class="note" style="margin:0">Free for tenants and buyers. Unlock full listing details.</p>
+<input id="rn" placeholder="Full name"><input id="re" type="email" placeholder="Email">
+<button class="btn" onclick="doReg()">Create free account</button>
+<button class="btn o" onclick="closeReg()">Not now</button>
+</div></div>
+
+<script>
+var C=["Saudi Arabia","UAE","Qatar","Kuwait","Bahrain","Oman","Jordan","Lebanon","Turkey"];
+var L=[
+["Riyadh",24.7,46.7,"Saudi Arabia","Rent"],["Jeddah",21.5,39.2,"Saudi Arabia","Buy"],["Dammam",26.4,50.1,"Saudi Arabia","Rent"],
+["Dubai",25.2,55.3,"UAE","Buy"],["Abu Dhabi",24.5,54.4,"UAE","Rent"],["Doha",25.3,51.5,"Qatar","Rent"],
+["Kuwait City",29.4,48.0,"Kuwait","Rent"],["Manama",26.2,50.6,"Bahrain","Buy"],["Muscat",23.6,58.4,"Oman","Rent"],
+["Amman",31.9,35.9,"Jordan","Rent"],["Beirut",33.9,35.5,"Lebanon","Buy"],["Istanbul",41.0,29.0,"Turkey","Buy"],["Ankara",39.9,32.9,"Turkey","Rent"]];
+function P(lat,lon,w,h){return [(lon-25)/37*w,(43-lat)/31*h]}
+var OUT=[[26,41],[31,41.6],[38,41],[44,41],[45,39],[44,37],[42,37],[40,36.5],[36,36.6],[35.8,35],[35.1,33],[34.9,31.5],[34.5,29.5],[35,28],[37,25],[39,21.5],[41,18],[43,14],[45,12.8],[49,14],[52,16],[55,17],[57,19],[59.5,22.5],[58,24],[56.5,26],[54,24],[52,24],[51,26],[50,27],[48,29.5],[48.5,30.5],[47,32],[46,33],[45.5,35],[44,37.5],[42,37],[40,37.5],[38,37],[36,36.7],[35.5,36.5],[32,36.3],[29,36.8],[26.5,38]];
+function path(w,h){return OUT.map(function(p,i){var q=P(p[1],p[0],w,h);return (i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1)}).join("")+"Z"}
+function draw(id,w,h,r,tips){
+ var s=document.getElementById(id),o='<path class="land" d="'+path(w,h)+'"/>';
+ L.forEach(function(l,i){var q=P(l[1],l[2],w,h);
+  o+='<circle class="pt" cx="'+q[0]+'" cy="'+q[1]+'" r="'+r+'" data-i="'+i+'"/>'});
+ s.innerHTML=o;
+ if(tips){s.querySelectorAll(".pt").forEach(function(c){
+  c.addEventListener("mouseenter",function(){var l=L[c.dataset.i],b=c.getBoundingClientRect(),m=document.getElementById("mb").getBoundingClientRect(),t=document.getElementById("tip");
+   t.textContent=l[0]+", "+l[3]+" · For "+l[4];t.style.left=(b.left-m.left+b.width/2)+"px";t.style.top=(b.top-m.top)+"px";t.style.opacity=1});
+  c.addEventListener("mouseleave",function(){document.getElementById("tip").style.opacity=0});
+  c.addEventListener("click",function(){if(!document.body.classList.contains("in"))openReg();else document.getElementById("homes").scrollIntoView()});
+ })}
+}
+draw("hmap",400,400,6,false);draw("bmap",800,520,7,true);
+var fc=document.getElementById("fc"),lc=document.getElementById("lc");
+C.forEach(function(c){fc.add(new Option(c));lc.add(new Option(c))});
+var cd=document.getElementById("cards");
+L.slice(0,8).forEach(function(l,i){cd.innerHTML+='<div class="card"><div class="ph"></div><h3>'+l[0]+', '+l[3]+'</h3><div class="m">House · '+(3+i%4)+' bedrooms · For '+l[4]+'</div><div class="price lock">Price on request</div><div class="m lock">Exact address and photos</div><div class="lockmsg">Register free to see full details</div></div>'});
+function openReg(){document.getElementById("rm").classList.add("on")}
+function closeReg(){document.getElementById("rm").classList.remove("on")}
+function doReg(){
+ var n=document.getElementById("rn").value.trim(),e=document.getElementById("re").value.trim();
+ if(!n||e.indexOf("@")<1){alert("Please enter your name and a valid email.");return}
+ try{localStorage.setItem("mk_reg","1")}catch(x){}
+ document.body.classList.add("in");document.getElementById("regBtn").textContent="Registered ✓";closeReg();
+ location.href="mailto:portal@malkanat.com?subject="+encodeURIComponent("New registration")+"&body="+encodeURIComponent("Name: "+n+"\nEmail: "+e);
+}
+try{if(localStorage.getItem("mk_reg")){document.body.classList.add("in");document.getElementById("regBtn").textContent="Registered ✓"}}catch(x){}
+function sendList(ev){ev.preventDefault();var f=new FormData(ev.target),b="";
+ f.forEach(function(v,k){b+=k+": "+v+"\n"});b+="\nSigned electronically on "+new Date().toISOString().slice(0,10);
+ location.href="mailto:portal@malkanat.com?subject="+encodeURIComponent("New house listing")+"&body="+encodeURIComponent(b);return false}
+</script>
+</body>
+</html>
